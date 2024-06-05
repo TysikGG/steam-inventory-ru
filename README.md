@@ -1,66 +1,63 @@
-# Get Steam Inventories
-Get a users steaminventory of any game. It's easy to use!
+# Получение инвентарей Steam на Node.js
+Простая библиотека для получения Steam-инвентарей.
+Без необходимости использования API-ключа.
 
-**Install**
+**Установка**
 ```js
-npm install get-steam-inventory --save
+npm i steam-inventory-ru
 ```
 
-**Import**
+**Импорт**
 ```js
-const steaminventory = require('get-steam-inventory');
+const steaminventory = require('steam-inventory-ru');
 ```
 
-**Versions before 2.0 doesn't support promises.**
-
-Have you got a question? Please submit an issue [here](https://github.com/ThunbergOlle/steam-inventory/issues).
-
-## Methods
+## Методы
 ```js
 steaminventory.getinventory(appid, steamid, contextid, tradeable);
 ```
-- appid: This is the [appid](https://steamdb.info/apps/) for the game that you want to load the inventory items for.
-- steamid: This is the [steam64](https://steamid.io/lookup/) id of the user that you want to load.
-- contextid: Context id is an id set by the game. For valve games it's usually 2.
-- tradeable: This a boolean to filter the items which can be traded.
-#### Data resolve
-- data.raw: Raw information recieved from the servers.
-- data.items: All the information about the items. (Like icon urls, descriptions, name colors ect)
-- data.marketnames: All the market names of the items in the inventory returned as a javascript object.
-- data.assets: All the information about the assets in the inventory
-- data.assetids: Every assetid in the inventory
-## Examples
+- appid: Это [appid](https://steamdb.info/apps/) игры, для которой вы запрашиваете инвентарь.
+- steamid: Это [steam64](https://steamid.io/lookup/) ID пользователя, чей инвентарь вы запрашиваете.
+- contextid: Данное значение является ID игры. Для игр от Valve оно зачастую 2.
+- data: Дополнительные данные для запроса:
+- data.tradeable: Если true - возвращает только те предметы, которые можно обменять
+- data.language: Поддерживает 2 языка: ru, en. Стандартное значение: en
+#### Данные
+- data.raw: Raw-информация с сервера
+- data.items: Вся информация о вещах (иконки, имена и прочее)
+- data.marketnames: Имена вещей, возвращаемые в качестве JS-обьекта.
+- data.assets: Вся информация об ассетах.
+- data.assetids: Вся информация об ID ассетов.
+## Примеры
 
-### Get the item names
+### Получение списка вещей
 ```js
-const steaminventory = require('./index.js');
+const steaminventory = require('steam-inventory-ru');
 const steamid = '76561198089544929';
-steaminventory.getinventory(730, steamid, '2', true).then(data => {
+steaminventory.getinventory(730, steamid, '2', {tradeable: true, language: "en"}).then(data => {
     console.log(data.marketnames);
 }).catch(err => console.log(err));
 
 ```
-**Output**
+**Вывод**
 ```js
 [ 'Sealed Graffiti | NaCl (Shark White)',
   'Glove Case',
   'Gamma 2 Case',
   'Chroma 2 Case',
-  'AND LOTS OF MORE INFORMATION OR NAMES :)']
+  'И много других имён...']
 ```
-Well, using that example may not be the best thing if you are trying to get something useful out of it.
-We recommend this instead:
 
-### Get raw
+### Получение конкретных данных о вещах
 ```js
-const steaminventory = require('./index.js');
+const steaminventory = require('steam-inventory-ru');
 const steamid = '76561198089544929';
 steaminventory.getinventory(730, steamid, '2', true).then(data => {
     console.log(data.raw);
 }).catch(err => console.log(err));
-//This one logs EVERY name of the items in the inventory.
+// Выводит имя каждой вещи в инвентаре
 ```
-**Output**
+**Вывод**
 ```js
 { appid: 730,
        classid: '1989274437',
@@ -69,48 +66,3 @@ steaminventory.getinventory(730, steamid, '2', true).then(data => {
        background_color: '',
        icon_url: 'IzMF03bi9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdB2ozio1RrlIWFK3Uf'
 ```
-### Get assets
-```js
-const steaminventory = require('./index.js');
-const steamid = '76561198089544929';
-steaminventory.getinventory(730, steamid, '2', true).then(data => {
-    console.log(data.assets);
-}).catch(err => console.log(err));
-//This one logs EVERY name of the items in the inventory.
-```
-**Output**
-```js
-{ appid: 730,
-    contextid: '2',
-    assetid: '13106527064',
-    classid: '1989315922',
-    instanceid: '302028390',
-    amount: '1' },
-  { appid: 730,
-    contextid: '2',
-```
-
-### Contribute
-Feel free to open pullrequests or issues on the [github](https://github.com/ThunbergOlle/steam-inventory) page.
-## License
-MIT License
-
-Copyright (c) 2018 Olle Thunberg
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.

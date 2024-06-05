@@ -1,14 +1,14 @@
 {
-  "name": "get-steam-inventory",
-  "version": "2.0.0",
-  "description": "Get someone steam inventory items!",
+  "name": "steam-inventory-ru",
+  "version": "1.0.2",
+  "description": "Библиотека для получения steam-инвентарей",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ThunbergOlle/steam-inventory.git"
+    "url": "git+https://github.com/TysikGG/steam-inventory-ru.git"
   },
   "keywords": [
     "Steam",
@@ -23,14 +23,17 @@
     "steam modules",
     "steam-api",
     "steam-market-pricing",
-    "steam-inventory"
+    "steam-inventory",
+    "steam-ru",
+    "steam-russian",
+    "russian"
   ],
-  "author": "OlleThunberg <olle.thunberg03@gmail.com>",
+  "author": "tysik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ThunbergOlle/steam-inventory/issues"
+    "url": "https://github.com/TysikGG/steam-inventory-ru/issues"
   },
-  "homepage": "https://github.com/ThunbergOlle/steam-inventory#readme",
+  "homepage": "https://github.com/TysikGG/steam-inventory-ru#readme",
   "dependencies": {
     "request": "^2.88.0"
   }
