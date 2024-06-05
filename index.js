@@ -37,7 +37,7 @@ exports.getinventory = (appid, steamid, contextid, reqData) => {
                     marketnames.push(items[i].market_hash_name);
                     assetids.push(assets[i].assetid);
                 }
-            } else if (items === undefined) return reject("Не удалось найти вещей по указанному appID");
+            } else if (items === undefined) return reject("Не удалось найти вещей по указанному AppID!");
 
             
             data.items = data.items.filter(item => item.tradable == "1");
