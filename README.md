@@ -14,14 +14,14 @@ const steaminventory = require('steam-inventory-ru');
 
 ## Методы
 ```js
-steaminventory.getinventory(appid, steamid, contextid, tradeable);
+steaminventory.getinventory(appid, steamid, contextid, reqData);
 ```
 - appid: Это [appid](https://steamdb.info/apps/) игры, для которой вы запрашиваете инвентарь.
 - steamid: Это [steam64](https://steamid.io/lookup/) ID пользователя, чей инвентарь вы запрашиваете.
 - contextid: Данное значение является ID игры. Для игр от Valve оно зачастую 2.
 - data: Дополнительные данные для запроса:
-- data.tradeable: Если true - возвращает только те предметы, которые можно обменять
-- data.language: Поддерживает 2 языка: ru, en. Стандартное значение: en
+- reqData.tradable: Если true - возвращает только те предметы, которые можно обменять
+- reqData.language: Поддерживает 2 языка: ru, en. Стандартное значение: en
 #### Данные
 - data.raw: Raw-информация с сервера
 - data.items: Вся информация о вещах (иконки, имена и прочее)
@@ -33,7 +33,7 @@ steaminventory.getinventory(appid, steamid, contextid, tradeable);
 ### Получение списка вещей
 ```js
 const steaminventory = require('steam-inventory-ru');
-const steamid = '76561198089544929';
+const steamid = '76561199009885328';
 steaminventory.getinventory(730, steamid, '2', {tradeable: true, language: "en"}).then(data => {
     console.log(data.marketnames);
 }).catch(err => console.log(err));
@@ -51,11 +51,10 @@ steaminventory.getinventory(730, steamid, '2', {tradeable: true, language: "en"}
 ### Получение конкретных данных о вещах
 ```js
 const steaminventory = require('steam-inventory-ru');
-const steamid = '76561198089544929';
+const steamid = '76561199009885328';
 steaminventory.getinventory(730, steamid, '2', true).then(data => {
-    console.log(data.raw);
+    console.log(data.raw); // Выводит имя каждой вещи в инвентаре
 }).catch(err => console.log(err));
-// Выводит имя каждой вещи в инвентаре
 ```
 **Вывод**
 ```js
@@ -65,4 +64,5 @@ steaminventory.getinventory(730, steamid, '2', true).then(data => {
        currency: 0,
        background_color: '',
        icon_url: 'IzMF03bi9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdB2ozio1RrlIWFK3Uf'
+       ...
 ```

@@ -1,15 +1,15 @@
 const request = require('request');
 
-exports.getinventory = (appid, steamid, contextid, data) => {
+exports.getinventory = (appid, steamid, contextid, reqData) => {
     return new Promise((resolve, reject) => {
         if (typeof appid !== 'number') appid = 730;
         if (!contextid) contextid = 2;
 
         if (typeof contextid === 'string') contextid = parseInt(contextid);
-        if (typeof data?.tradeable !== "boolean") tradeable = false;
+        if (typeof reqData?.tradable !== "boolean") reqData.tradable = false;
 
         let headers;
-        if (data.language != "en") {
+        if (reqData.language != "en") {
             headers = { "Accept-Language": "ru,en-US;q=0.9,en;q=0.8,ru-RU;q=0.7,be;q=0.6" }
         } else {
             headers = {}
@@ -39,10 +39,11 @@ exports.getinventory = (appid, steamid, contextid, data) => {
                 }
             } else if (items === undefined) return reject("Не удалось найти вещей по указанному appID");
 
-            if (data?.tradeable) data.items = data.items.filter((x) => x.tradable === 1);
+            
+            data.items = data.items.filter(item => item.tradable == "1");
 
             if (err) return reject(err);
-            resolve(data);
+            return resolve(data);
         });
     })
 
