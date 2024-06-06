@@ -2,19 +2,20 @@ const request = require('request');
 
 exports.getinventory = async (appid, steamid, contextid, reqData) => {
     let pricesData;
-
-    request('https://market.csgo.com/api/v2/prices/USD.json', function (error, response, body) {
-        pricesData = JSON.parse(body)
-        function findPriceByMarketHashName(marketHashName) {
-            const item = pricesData.items.find(item => item.market_hash_name === marketHashName);
-            if (item) {
-            return item.price;
-            } else {
-            return "-1";
+    return new Promise((resolve, reject) => {
+        request('https://market.csgo.com/api/v2/prices/USD.json', function (error, response, body) {
+            pricesData = JSON.parse(body)
+            
+            function findPriceByMarketHashName(marketHashName) {
+                const item = pricesData.items.find(item => item.market_hash_name === marketHashName);
+                if (item) {
+                return item.price;
+                } else {
+                return "-1";
+                }
             }
-        }
 
-        return new Promise((resolve, reject) => {
+        
             if (typeof appid !== 'number') appid = 730;
             if (!contextid) contextid = 2;
 
@@ -81,8 +82,9 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                 data.items = data.items.filter(item => item.tradable == "1");
 
                 if (err) return reject(err);
-                resolve(data);
+                return resolve(data);
             });
+            
         })
-    });
+    })
 }

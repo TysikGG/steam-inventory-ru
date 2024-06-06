@@ -1,6 +1,6 @@
 {
   "name": "steam-inventory-ru",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Библиотека для получения steam-инвентарей",
   "main": "index.js",
   "scripts": {
