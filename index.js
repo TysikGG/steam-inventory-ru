@@ -1,13 +1,10 @@
 const request = require('request');
 
-
 exports.getinventory = async (appid, steamid, contextid, reqData) => {
     let pricesData;
 
     request('https://market.csgo.com/api/v2/prices/USD.json', function (error, response, body) {
-        
         pricesData = JSON.parse(body)
-        console.log(pricesData.items)
         function findPriceByMarketHashName(marketHashName) {
             const item = pricesData.items.find(item => item.market_hash_name === marketHashName);
             if (item) {
@@ -34,7 +31,7 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                 baseUrl: 'https://steamcommunity.com/',
                 json: true,
                 headers: headers
-            }, async (err, res, body) => {
+            }, (err, res, body) => {
                 if (!body) return reject(`Указанный SteamID не найден! Указанный ID: ${steamid}`);
                 let items = body.descriptions;
                 let assets = body.assets
@@ -62,7 +59,6 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                                 if (category.internal_name == "WearCategory2") qName = {name: "FT", fullName: "Поношенное"};
                                 if (category.internal_name == "WearCategory3") qName = {name: "WW", fullName: "После полевых испытаний"};
                                 if (category.internal_name == "WearCategory4") qName = {name: "BS", fullName: "Закалённое в боях"};
-                                console.log(qName)
                                 items[i].quality = qName
                             } else if (category.category == "Rarity") {
                                 let rarity;
@@ -75,8 +71,6 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                                 if (category.internal_name == "Rarity_Ancient_Weapon" || category.internal_name == "Rarity_Ancient") rarity = {name: "ancient", fullName: "Тайное"};
                                 if (category.internal_name == "Rarity_Immortal_Weapon" || category.internal_name == "Rarity_Immortal") rarity = {name: "immortal", fullName: "Легендарное"};
                                 if (category.internal_name == "Rarity_Unusual") rarity = {name: "unusual", fullName: "Необычное"};
-                                else console.log(category.internal_name)
-                                console.log(rarity)
                                 items[i].rarity = rarity
                             }
                         }
@@ -87,7 +81,7 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                 data.items = data.items.filter(item => item.tradable == "1");
 
                 if (err) return reject(err);
-                return resolve(data);
+                resolve(data);
             });
         })
     });
