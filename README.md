@@ -22,6 +22,7 @@ steaminventory.getinventory(appid, steamid, contextid, reqData);
 - data: Дополнительные данные для запроса:
 - reqData.tradable: Если true - возвращает только те предметы, которые можно обменять
 - reqData.language: Поддерживает 2 языка: ru, en. Стандартное значение: en
+- reqData.price: Добавлять ли в свойство price цену для каждого предмета (поддерживается только CS).
 #### Данные
 - data.raw: Raw-информация с сервера
 - data.items: Вся информация о вещах (иконки, имена и прочее)
