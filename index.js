@@ -8,11 +8,8 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
             
             function findPriceByMarketHashName(marketHashName) {
                 const item = pricesData.items.find(item => item.market_hash_name === marketHashName);
-                if (item) {
-                return item.price;
-                } else {
-                return "-1";
-                }
+                if (item) return item.price;
+                else return "-1";
             }
 
         
@@ -85,6 +82,15 @@ exports.getinventory = async (appid, steamid, contextid, reqData) => {
                 return resolve(data);
             });
             
+        })
+    })
+}
+
+exports.getCSPrices = async () => {
+    return new Promise((resolve, reject) => {
+        request('https://market.csgo.com/api/v2/prices/USD.json', function (error, response, body) {
+            if (error) return reject(error)
+            return resolve(JSON.parse(body))
         })
     })
 }
