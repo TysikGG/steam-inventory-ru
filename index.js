@@ -94,3 +94,9 @@ exports.getCSPrices = async () => {
         })
     })
 }
+
+exports.findPrice = (database, marketName) => {
+    const item = database.items.find(item => item.market_hash_name === marketName);
+    if (item) return item.price;
+    else return null;
+}
