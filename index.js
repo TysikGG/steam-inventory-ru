@@ -99,4 +99,11 @@ exports.findPrice = (database, marketName) => {
     const item = database.items.find(item => item.market_hash_name === marketName);
     if (item) return item.price;
     else return null;
-}
+};
+
+exports.getMediumPrice = (marketHashName) => {
+    request(`http://steamcommunity.com/market/priceoverview/?currency=5&country=us&appid=730&market_hash_name=${marketHashName}&format=json` , function (error, res, body) {
+        if (error) return reject(error);
+        return resolve(JSON.parse(body));
+    });
+};
